@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface ValidacionRepository extends JpaRepository<Validacion, Integer> {
   Optional<Validacion> findByToken(String token);
+  boolean existsByCodigo(String codigo);
 }

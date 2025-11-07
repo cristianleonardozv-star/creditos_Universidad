@@ -73,15 +73,14 @@ public class ValidacionService {
         return java.util.Map.of("error", true, "msg", msg);
     }
 
+    /**
+     * Genera un código aleatorio de 10 caracteres que no exista aún en la base de datos.
+     */
     private String generarCodigoUnico() {
         String codigo;
-        boolean existe;
         do {
             codigo = util.randomCode(10);
-            existe = validacionRepo.findAll()
-                    .stream()
-                    .anyMatch(v -> v.getCodigo().equals(codigo));
-        } while (existe);
+        } while (validacionRepo.existsByCodigo(codigo)); // ✅ usa consulta directa, sin lambda
         return codigo;
     }
 }
